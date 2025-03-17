@@ -3,7 +3,9 @@ package com.app.mongodb.sb_mongodb_app.controller;
 import java.util.List;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +19,7 @@ import com.app.mongodb.sb_mongodb_app.model.Student;
 import com.app.mongodb.sb_mongodb_app.repository.StudentRepository;
 
 @RestController
+@Slf4j
 public class AppController {
 
 	@Autowired
@@ -28,8 +31,8 @@ public class AppController {
 	
 	@GetMapping(value = "/getAllStudents")
 	public List<Student> getAllStudents(Authentication authentication){
-		
-		System.out.println(" logged in user " + authentication.getName());
+
+        log.info(" logged in user {}", authentication.getName());
 		List<Student> list = studentRepository.findAll();
 		return list;
 	}
@@ -42,13 +45,13 @@ public class AppController {
 		query.addCriteria(Criteria.where(field).is(value));
 		List<Student> students = mongoTemplate.find(query, Student.class);
 	
-		System.out.println(" mongotemplate size " + students.size());
+		log.info(" mongo template size " + students.size());
 		// repository method 
 		
 		List<Student> list2 =studentRepository.findByName(value);
 		
 
-		System.out.println(" studentRepository size " + list2.size());
+		log.info(" studentRepository size " + list2.size());
 		
 		return students;
 	}
