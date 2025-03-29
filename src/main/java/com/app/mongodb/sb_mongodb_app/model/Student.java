@@ -1,56 +1,35 @@
 package com.app.mongodb.sb_mongodb_app.model;
 
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Data
 @Document(collection = "students")
+// 1 is asc , -1 desc
+@CompoundIndex(name = "name_year" , def = "{'name':1 , 'year': -1}")
 public class Student {
 	
 	@Id
-	private String sID;
+	private String id;
+	@Field(name = "sID")
+	private Integer studentNumber;
+	@Indexed
 	private String name;
 	private String year;
-	private String score;
-	public String getsID() {
-		return sID;
-	}
-	public void setsID(String sID) {
-		this.sID = sID;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getYear() {
-		return year;
-	}
-	public void setYear(String year) {
-		this.year = year;
-	}
-	public String getScore() {
-		return score;
-	}
-	public void setScore(String score) {
-		this.score = score;
-	}
-	public Student(String sID, String name, String year, String score) {
-		super();
-		this.sID = sID;
-		this.name = name;
-		this.year = year;
-		this.score = score;
-	}
-	@Override
-	public String toString() {
-		return "Student [sID=" + sID + ", name=" + name + ", year=" + year + ", score=" + score + "]";
-	}
-	
-	
-	
-	
-	
-	
+	@Field(name = "score")
+	private String totalScore;
+	private String email;
+	private List<Subject> subjects;
 
 }

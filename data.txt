@@ -1,0 +1,6 @@
+db.students.insertOne({
+  sID: "1",
+  name: "Kavir",
+  year: "2021",
+  score: "90"
+})
