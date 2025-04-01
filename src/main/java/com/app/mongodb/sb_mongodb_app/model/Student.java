@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -31,5 +32,8 @@ public class Student {
 	private String totalScore;
 	private String email;
 	private List<Subject> subjects;
+	
+	@DBRef // this will create a reference to the Department collection
+	private Department department; // embedded document
 
 }
